@@ -1,7 +1,13 @@
 <template>
   <div>
+    <v-alert v-show="errorMessage" dense outlined type="error">
+      {{ errorMessage }}
+    </v-alert>
+    <v-alert v-show="isSuccess" dense outlined type="info">
+      Feelingを登録しました
+    </v-alert>
     <v-row justify="space-around">
-      <v-text-field v-model="userName" />
+      <v-text-field v-model="userName" label="ユーザ名" />
     </v-row>
     <v-row justify="space-around">
       <v-col v-for="type in types" :key="type.num">
@@ -40,6 +46,8 @@ export default {
   data() {
     return {
       userName: '',
+      isSuccess: '',
+      errorMessage: '',
       types: [
         {
           iconName: 'mdi-emoticon-excited-outline',
@@ -58,11 +66,20 @@ export default {
   },
   methods: {
     async registerFeeling(type) {
-      await this.$axios.$post('http://localhost:8083/feelings', {
-        date: this.$moment().format(),
-        type,
-        user: this.userName
-      })
+      this.isSuccess = ''
+      this.errorMessage = ''
+      await this.$axios
+        .$post('http://localhost:8083/feelings', {
+          date: this.$moment().format(),
+          type,
+          user: this.userName
+        })
+        .then((response) => {
+          this.isSuccess = true
+        })
+        .catch((error) => {
+          this.errorMessage = error.response.data
+        })
     },
     async searchFeeling() {
       const result = await this.$axios.$get('http://localhost:8083/feelings')
