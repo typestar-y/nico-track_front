@@ -1,6 +1,9 @@
 <template>
   <div>
     <v-row justify="space-around">
+      <v-text-field v-model="userName" />
+    </v-row>
+    <v-row justify="space-around">
       <v-col v-for="type in types" :key="type.num">
         <v-row align="center" justify="center">
           <v-btn
@@ -23,7 +26,7 @@
       <v-col>
         <ul>
           <li v-for="(feeling, index) in feelings" :key="index">
-            {{ $moment(feeling.date) }} : {{ feeling.type }}
+            {{ feeling.date }} : {{ feeling.type }}: {{ feeling.userName }}
           </li>
         </ul>
       </v-col>
@@ -36,6 +39,7 @@ export default {
   name: 'Index',
   data() {
     return {
+      userName: '',
       types: [
         {
           iconName: 'mdi-emoticon-excited-outline',
@@ -56,7 +60,8 @@ export default {
     async registerFeeling(type) {
       await this.$axios.$post('http://localhost:8083/feelings', {
         date: this.$moment().format(),
-        type
+        type,
+        user: this.userName
       })
     },
     async searchFeeling() {
