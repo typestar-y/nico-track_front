@@ -3,8 +3,13 @@
     <v-row justify="space-around">
       <v-col v-for="type in types" :key="type.num">
         <v-row align="center" justify="center">
-          <v-btn @click="registerFeeling(type.num)" large>
-            <v-icon>{{ type.iconName }}</v-icon>
+          <v-btn
+            @click="registerFeeling(type.num)"
+            :color="type.color"
+            fab
+            large
+          >
+            <v-icon color="white" x-large>{{ type.iconName }}</v-icon>
           </v-btn>
         </v-row>
       </v-col>
@@ -32,9 +37,17 @@ export default {
   data() {
     return {
       types: [
-        { iconName: 'mdi-emoticon-excited-outline', num: 1 },
-        { iconName: 'mdi-emoticon-outline', num: 2 },
-        { iconName: 'mdi-emoticon-frown-outline', num: 3 }
+        {
+          iconName: 'mdi-emoticon-excited-outline',
+          num: 1,
+          color: 'lime lighten-3'
+        },
+        { iconName: 'mdi-emoticon-outline', num: 2, color: 'grey lighten-3' },
+        {
+          iconName: 'mdi-emoticon-frown-outline',
+          num: 3,
+          color: 'blue-grey lighten-3'
+        }
       ],
       feelings: ''
     }
