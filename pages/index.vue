@@ -18,7 +18,7 @@
       <v-col>
         <ul>
           <li v-for="(feeling, index) in feelings" :key="index">
-            {{ feeling.date }} : {{ feeling.type }}
+            {{ $moment(feeling.date) }} : {{ feeling.type }}
           </li>
         </ul>
       </v-col>
@@ -42,7 +42,7 @@ export default {
   methods: {
     async registerFeeling(type) {
       await this.$axios.$post('http://localhost:8083/feelings', {
-        date: '2019-09-10',
+        date: this.$moment().format(),
         type
       })
     },

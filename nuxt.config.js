@@ -37,7 +37,8 @@ export default {
   buildModules: [
     // Doc: https://github.com/nuxt-community/eslint-module
     '@nuxtjs/eslint-module',
-    '@nuxtjs/vuetify'
+    '@nuxtjs/vuetify',
+    '@nuxtjs/moment'
   ],
   /*
    ** Nuxt.js modules
@@ -46,6 +47,10 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios'
   ],
+  moment: {
+    defaultLocale: 'ja',
+    locales: ['ja']
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
